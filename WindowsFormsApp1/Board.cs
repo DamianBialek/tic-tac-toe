@@ -38,7 +38,7 @@ namespace TicTacToe
 
         int scoreX, scoreY;
         Random randomObject = new Random();
-        bool endOfTheRoundFlag = false;
+        public bool endOfTheRoundFlag = false;
 
         bool dragging = false;
         Point startPoint = new Point(0, 0);
@@ -287,13 +287,20 @@ namespace TicTacToe
 
         public void initClient(int playerSet)
         {
-            player = playerSet;
-            playerName.Text = playerPosName[player];
+            synchronization(playerSet);
 
             addAllFieldsToList();
             fieldTextCenter();
             textTypeOfGame();
         }
+
+        public void synchronization(int playerSet)
+        {
+            player = playerSet;
+            playerName.Text = playerPosName[player];
+        }
+
+        #region New UI control
 
         private void closeButton_Click(object sender, EventArgs e)
         {
@@ -337,6 +344,8 @@ namespace TicTacToe
                 Location = new Point(p.X - this.startPoint.X, p.Y - this.startPoint.Y);
             }
         }
+
+        #endregion
     }
 
 }

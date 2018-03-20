@@ -95,7 +95,7 @@ namespace TicTacToe
 
         public void playerTwoIsAvailable()
         {
-            board.addNewMessage("Player Two is available");
+            MessageBox.Show("Drugi gracz dołączył. Rozpoczynam nową grę");
             board.newGame(new object(), new EventArgs());
 
             writer = new BinaryWriter(client.GetStream());
@@ -111,13 +111,16 @@ namespace TicTacToe
                 board.clickInFieldByName(clickedInFieldName);
                 writer.Write(clickedInFieldName);
 
-                Task waitForClickTask = new Task(waitOnServerClick);
-                waitForClickTask.Start();
+                if (!board.endOfTheRoundFlag)
+                {
+                    Task waitForClickTask = new Task(waitOnServerClick);
+                    waitForClickTask.Start();
 
-                await waitForClickTask;
+                    await waitForClickTask;
 
-                board.addNewMessage(responseField);
-                board.clickInFieldByName(responseField);
+                    board.addNewMessage(responseField);
+                    board.clickInFieldByName(responseField);
+                }
             }
             else
             {
@@ -141,11 +144,9 @@ namespace TicTacToe
                 int startPlayer = serverPlayer = reader.ReadInt32();
                 clientPlayer = board.getOppositePlayer();
 
-                board.addNewMessage(startPlayer.ToString());
                 board.initClient(startPlayer);
                 board.version = "client";
                 start();
-
                 waitForServerResponse();
             }
         }
@@ -162,6 +163,7 @@ namespace TicTacToe
 
         public void waitOnServerClick()
         {
+            responseField = "";
             responseField = reader.ReadString();
         }
 
@@ -177,13 +179,15 @@ namespace TicTacToe
                 Task waitForClickTask = new Task(waitOnServerClick);
                 waitForClickTask.Start();
 
-                board.addNewMessage("To reader mode ...");
                 await waitForClickTask;
-                board.addNewMessage("eatate");
 
-                if(responseField == "continueGame")
+                if(string.Equals(responseField, "continueGame"))
                 {
                     board.continueGame(new object(), new EventArgs());
+                    synchronizationClient();
+
+                    if(isClient && board.player != clientPlayer)
+                        waitForServerResponse();
                 }
             }
         }
@@ -191,6 +195,21 @@ namespace TicTacToe
         public override void continueGame()
         {
             writer.Write("continueGame");
+            synchronizationServer();
+
+            if(isServer && board.player != serverPlayer)
+                waitForServerResponse();
+        }
+
+        public void synchronizationServer()
+        {
+            writer.Write(board.player);
+        }
+
+        public void synchronizationClient()
+        {
+            int player = reader.ReadInt32();
+            board.player = player;
         }
     }
 }
