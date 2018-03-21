@@ -9,6 +9,7 @@ namespace TicTacToe
    abstract public class Controller
     {
         MenuStartBox application;
+        protected Board board;
 
         public int[,] winTypes = {
             { 0,1,2 },
@@ -32,7 +33,10 @@ namespace TicTacToe
 
         virtual public void formLoaded(){}
 
-        virtual public void clickInField(string clickedInFieldName){ }
+        virtual public void clickInField(string clickedInFieldName)
+        {
+            board.clickInFieldByName(clickedInFieldName);
+        }
 
         virtual public void continueGame(){ }
 

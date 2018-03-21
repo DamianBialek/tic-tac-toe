@@ -13,46 +13,53 @@ namespace TicTacToe
 {
     class Multiplayer : Controller
     {
-        Board board;
-        MultiplayerForm multiplayerForm;
-        string host;
-        int port;
+        
+        protected MultiplayerForm multiplayerForm;
+        protected string host;
+        protected int port;
 
-        TcpListener server;
-        TcpClient client;
+        protected TcpListener server;
+        protected TcpClient client;
 
-        bool isServer = false;
-        bool isClient = false;
-        int serverPlayer;
-        int clientPlayer;
+        protected bool isServer = false;
+        protected bool isClient = false;
+        protected int serverPlayer;
+        protected int clientPlayer;
 
-        BinaryWriter writer;
-        BinaryReader reader;
+        protected BinaryWriter writer;
+        protected BinaryReader reader;
 
-        string responseField;
+        protected string responseField;
 
-        public Multiplayer(MenuStartBox application) : base(application)
+        protected bool error = false;
+
+        public Multiplayer(MenuStartBox application, bool isChosen = false) : base(application)
         {
-            multiplayerForm = new MultiplayerForm();
-            multiplayerForm.ShowDialog();
-
-            int action = multiplayerForm.start();
-            host = multiplayerForm.host;
-            port = multiplayerForm.port;
-
-            board = new Board(this);
-            board.multiplayer = true;
-
-            switch (action)
+            if (!isChosen)
             {
-                case 1:
-                    startServer();
-                    break;
-                case 2:
-                    joinToServer();
-                    break;
-                default:
-                    break;
+                multiplayerForm = new MultiplayerForm();
+                multiplayerForm.ShowDialog();
+
+                int action = multiplayerForm.start();
+                host = multiplayerForm.host;
+                port = multiplayerForm.port;
+
+                board = new Board(this);
+
+                switch (action)
+                {
+                    case 1:
+                        isChosen = true;
+                        startServer();
+                        break;
+                    case 2:
+                        isChosen = true;
+                        //new MulitplayerClient(application, true);
+                        joinToServer();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -95,7 +102,7 @@ namespace TicTacToe
 
         public void playerTwoIsAvailable()
         {
-            MessageBox.Show("Drugi gracz dołączył. Rozpoczynam nową grę");
+            board.addNewMessage("New player available");
             board.newGame(new object(), new EventArgs());
 
             writer = new BinaryWriter(client.GetStream());
@@ -106,25 +113,33 @@ namespace TicTacToe
 
         public async override void clickInField(string clickedInFieldName)
         {
-            if ((isServer && board.player == serverPlayer) || (isClient && board.player == clientPlayer))
+            try
             {
-                board.clickInFieldByName(clickedInFieldName);
-                writer.Write(clickedInFieldName);
-
-                if (!board.endOfTheRoundFlag)
+                if ((isServer && board.player == serverPlayer) || (isClient && board.player == clientPlayer))
                 {
-                    Task waitForClickTask = new Task(waitOnServerClick);
-                    waitForClickTask.Start();
+                    board.clickInFieldByName(clickedInFieldName);
+                    writer.Write(clickedInFieldName);
 
-                    await waitForClickTask;
+                    if (!board.endOfTheRoundFlag)
+                    {
+                        Task waitForClickTask = new Task(waitOnServerClick);
+                        waitForClickTask.Start();
 
-                    board.addNewMessage(responseField);
-                    board.clickInFieldByName(responseField);
+                        await waitForClickTask;
+
+                        board.addNewMessage(responseField);
+                        board.clickInFieldByName(responseField);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Teraz kolej na drugiego gracza");
                 }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Teraz kolej na drugiego gracza");
+                MessageBox.Show("Wystąpił nieoczekiwany błąd!");
+                this.close();
             }
         }
 
@@ -133,7 +148,7 @@ namespace TicTacToe
             client = new TcpClient();
             client.Connect(IPAddress.Parse(host), port);
 
-            if(client.Connected)
+            if (client.Connected)
             {
                 isClient = true;
                 writer = new BinaryWriter(client.GetStream());
@@ -158,13 +173,23 @@ namespace TicTacToe
 
             await waitForClickTask;
 
-            board.clickInFieldByName(responseField);
+            if (!error)
+                board.clickInFieldByName(responseField);
+            else
+                this.close();
         }
 
         public void waitOnServerClick()
         {
-            responseField = "";
-            responseField = reader.ReadString();
+            try
+            {
+                responseField = "";
+                responseField = reader.ReadString();
+            }
+            catch (Exception)
+            {
+                error = true;
+            }
         }
 
         public void start()
@@ -181,12 +206,12 @@ namespace TicTacToe
 
                 await waitForClickTask;
 
-                if(string.Equals(responseField, "continueGame"))
+                if (string.Equals(responseField, "continueGame"))
                 {
                     board.continueGame(new object(), new EventArgs());
-                    synchronizationClient();
+                    synchronizationClient(); 
 
-                    if(isClient && board.player != clientPlayer)
+                    if (isClient && board.player != clientPlayer)
                         waitForServerResponse();
                 }
             }

@@ -9,8 +9,6 @@ namespace TicTacToe
 {
     class Standard : Controller
     {
-        Board board;
-
         public Standard(MenuStartBox application) : base(application)
         {
             board = new Board(this);

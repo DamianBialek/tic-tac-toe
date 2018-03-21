@@ -14,7 +14,6 @@ namespace TicTacToe
     {
         public bool server = false;
         public string version = "normal";
-        public bool multiplayer = false;
 
         public static int type;
         public Controller controller;
@@ -113,10 +112,7 @@ namespace TicTacToe
         {
             RichTextBox clickedTextBox = sender as RichTextBox;
 
-            if(type != 2)
-                clickInField(clickedTextBox);
-            else
-                controller.clickInField(clickedTextBox.Name);
+            controller.clickInField(clickedTextBox.Name);
         }
 
         public void clickInField(RichTextBox clickedField)
@@ -215,7 +211,7 @@ namespace TicTacToe
             continueGameButton.Enabled = false;
             nextMove();
 
-            if (type == 2 && version == "normal")
+            if (server)
                 controller.continueGame();
         }
 
@@ -292,6 +288,8 @@ namespace TicTacToe
             addAllFieldsToList();
             fieldTextCenter();
             textTypeOfGame();
+
+            newGameButton.Enabled = false;
         }
 
         public void synchronization(int playerSet)

@@ -9,7 +9,6 @@ namespace TicTacToe
 {
     class Computer : Controller
     {
-        Board board;
         int computerName;
         string[] playerPosName = { "X", "O" };
         bool foundAllIndex = false;
