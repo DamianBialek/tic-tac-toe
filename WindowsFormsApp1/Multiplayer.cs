@@ -58,6 +58,7 @@ namespace TicTacToe
                         joinToServer();
                         break;
                     default:
+                        this.close();
                         break;
                 }
             }

@@ -272,7 +272,7 @@ namespace TicTacToe
 
         public void addNewMessage(string message)
         {
-            messagesTextBox.Text += message + "\r\n";
+            //messagesTextBox.Text += message + "\r\n";
         }
 
         private void resetScore()
@@ -289,6 +289,7 @@ namespace TicTacToe
             fieldTextCenter();
             textTypeOfGame();
 
+            newGameButton.Visible = false;
             newGameButton.Enabled = false;
         }
 

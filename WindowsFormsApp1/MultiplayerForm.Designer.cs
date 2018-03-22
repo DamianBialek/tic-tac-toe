@@ -34,11 +34,15 @@
             this.portTextBox = new System.Windows.Forms.TextBox();
             this.createNewServerButton = new System.Windows.Forms.Button();
             this.joinToServerButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // hostTextBox
             // 
-            this.hostTextBox.Location = new System.Drawing.Point(91, 12);
+            this.hostTextBox.Location = new System.Drawing.Point(125, 130);
             this.hostTextBox.Name = "hostTextBox";
             this.hostTextBox.Size = new System.Drawing.Size(100, 20);
             this.hostTextBox.TabIndex = 0;
@@ -47,7 +51,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 15);
+            this.label1.Location = new System.Drawing.Point(61, 133);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 1;
@@ -56,7 +60,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 41);
+            this.label2.Location = new System.Drawing.Point(61, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 3;
@@ -64,7 +68,7 @@
             // 
             // portTextBox
             // 
-            this.portTextBox.Location = new System.Drawing.Point(91, 38);
+            this.portTextBox.Location = new System.Drawing.Point(125, 156);
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(100, 20);
             this.portTextBox.TabIndex = 2;
@@ -72,7 +76,7 @@
             // 
             // createNewServerButton
             // 
-            this.createNewServerButton.Location = new System.Drawing.Point(30, 91);
+            this.createNewServerButton.Location = new System.Drawing.Point(64, 209);
             this.createNewServerButton.Name = "createNewServerButton";
             this.createNewServerButton.Size = new System.Drawing.Size(161, 23);
             this.createNewServerButton.TabIndex = 4;
@@ -82,7 +86,7 @@
             // 
             // joinToServerButton
             // 
-            this.joinToServerButton.Location = new System.Drawing.Point(30, 120);
+            this.joinToServerButton.Location = new System.Drawing.Point(64, 238);
             this.joinToServerButton.Name = "joinToServerButton";
             this.joinToServerButton.Size = new System.Drawing.Size(161, 23);
             this.joinToServerButton.TabIndex = 5;
@@ -90,20 +94,65 @@
             this.joinToServerButton.UseVisualStyleBackColor = true;
             this.joinToServerButton.Click += new System.EventHandler(this.joinToServerButton_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(56)))), ((int)(((byte)(59)))));
+            this.panel1.Controls.Add(this.closeButton);
+            this.panel1.Location = new System.Drawing.Point(-2, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(308, 43);
+            this.panel1.TabIndex = 31;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // closeButton
+            // 
+            this.closeButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.closeButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.closeButton.FlatAppearance.BorderSize = 0;
+            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.closeButton.ForeColor = System.Drawing.Color.White;
+            this.closeButton.Location = new System.Drawing.Point(251, 4);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(41, 36);
+            this.closeButton.TabIndex = 33;
+            this.closeButton.TabStop = false;
+            this.closeButton.Text = "X";
+            this.closeButton.UseVisualStyleBackColor = false;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this.closeButton.MouseEnter += new System.EventHandler(this.closeButtonMouseEnter);
+            this.closeButton.MouseLeave += new System.EventHandler(this.closeButtonMouseLeave);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(40, 65);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(215, 37);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "Wybierz akcję";
+            // 
             // MultiplayerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 169);
+            this.ClientSize = new System.Drawing.Size(305, 297);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.joinToServerButton);
             this.Controls.Add(this.createNewServerButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.portTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.hostTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MultiplayerForm";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MultiplayerForm";
+            this.Load += new System.EventHandler(this.MultiplayerForm_Load);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,5 +166,8 @@
         private System.Windows.Forms.TextBox portTextBox;
         private System.Windows.Forms.Button createNewServerButton;
         private System.Windows.Forms.Button joinToServerButton;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button closeButton;
     }
 }

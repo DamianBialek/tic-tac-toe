@@ -49,7 +49,6 @@
             this.continueGameButton = new System.Windows.Forms.Button();
             this.typeOfGameLabel = new System.Windows.Forms.Label();
             this.debugInfo = new System.Windows.Forms.Label();
-            this.messagesTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -284,15 +283,6 @@
             this.debugInfo.Size = new System.Drawing.Size(0, 13);
             this.debugInfo.TabIndex = 28;
             // 
-            // messagesTextBox
-            // 
-            this.messagesTextBox.Location = new System.Drawing.Point(29, 411);
-            this.messagesTextBox.Multiline = true;
-            this.messagesTextBox.Name = "messagesTextBox";
-            this.messagesTextBox.ReadOnly = true;
-            this.messagesTextBox.Size = new System.Drawing.Size(236, 199);
-            this.messagesTextBox.TabIndex = 29;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(56)))), ((int)(((byte)(59)))));
@@ -329,9 +319,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(532, 683);
+            this.ClientSize = new System.Drawing.Size(532, 439);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.messagesTextBox);
             this.Controls.Add(this.debugInfo);
             this.Controls.Add(this.typeOfGameLabel);
             this.Controls.Add(this.continueGameButton);
@@ -387,7 +376,6 @@
         private System.Windows.Forms.Button continueGameButton;
         private System.Windows.Forms.Label typeOfGameLabel;
         private System.Windows.Forms.Label debugInfo;
-        private System.Windows.Forms.TextBox messagesTextBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeButton;
     }

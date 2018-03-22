@@ -23,6 +23,8 @@ namespace TicTacToe
             InitializeComponent();
 
             hostTextBox.Text = IPAddress;
+            closeButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            closeButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
         }
 
         public int start()
@@ -75,6 +77,31 @@ namespace TicTacToe
                 }
             }
             return IPAddress;
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void closeButtonMouseLeave(object sender, EventArgs e)
+        {
+            closeButton.ForeColor = Color.White;
+        }
+
+        private void closeButtonMouseEnter(object sender, EventArgs e)
+        {
+            closeButton.ForeColor = Color.Black;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void MultiplayerForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
