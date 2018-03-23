@@ -59,6 +59,12 @@ namespace TicTacToe
             addAllFieldsToList();
             fieldTextCenter();
             textTypeOfGame();
+
+            if (type == 1 || type == 2)
+            {
+                label3.Visible = true;
+                playAsLabel.Text = playerPosName[player];
+            }
         }
 
 
@@ -184,6 +190,7 @@ namespace TicTacToe
 
         public void setAllFieldOnDisable()
         {
+            newGameButton.Visible = false;
             newGameButton.Enabled = false;
             foreach (RichTextBox field in listOfFields)
             {
@@ -281,7 +288,7 @@ namespace TicTacToe
             scoreY = 0;
         }
 
-        public void initClient(int playerSet)
+        public void initClient(int playerSet, int clientPlayer)
         {
             synchronization(playerSet);
 
@@ -291,6 +298,10 @@ namespace TicTacToe
 
             newGameButton.Visible = false;
             newGameButton.Enabled = false;
+
+            label3.Visible = true;
+            playAsLabel.Text = playerPosName[clientPlayer];
+
         }
 
         public void synchronization(int playerSet)

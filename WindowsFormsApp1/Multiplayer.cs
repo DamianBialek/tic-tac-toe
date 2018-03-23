@@ -160,7 +160,7 @@ namespace TicTacToe
                 int startPlayer = serverPlayer = reader.ReadInt32();
                 clientPlayer = board.getOppositePlayer();
 
-                board.initClient(startPlayer);
+                board.initClient(startPlayer, clientPlayer);
                 board.version = "client";
                 start();
                 waitForServerResponse();

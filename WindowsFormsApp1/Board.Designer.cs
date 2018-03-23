@@ -51,6 +51,8 @@
             this.debugInfo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.closeButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.playAsLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -269,7 +271,7 @@
             // 
             this.typeOfGameLabel.AutoSize = true;
             this.typeOfGameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.typeOfGameLabel.Location = new System.Drawing.Point(186, 62);
+            this.typeOfGameLabel.Location = new System.Drawing.Point(196, 62);
             this.typeOfGameLabel.Name = "typeOfGameLabel";
             this.typeOfGameLabel.Size = new System.Drawing.Size(79, 29);
             this.typeOfGameLabel.TabIndex = 27;
@@ -315,11 +317,33 @@
             this.closeButton.MouseEnter += new System.EventHandler(this.closeButtonMouseEnter);
             this.closeButton.MouseLeave += new System.EventHandler(this.closeButtonMouseLeave);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label3.Location = new System.Drawing.Point(24, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 26);
+            this.label3.TabIndex = 31;
+            this.label3.Text = "Grasz jako";
+            this.label3.Visible = false;
+            // 
+            // playAsLabel
+            // 
+            this.playAsLabel.AutoSize = true;
+            this.playAsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.playAsLabel.Location = new System.Drawing.Point(61, 88);
+            this.playAsLabel.Name = "playAsLabel";
+            this.playAsLabel.Size = new System.Drawing.Size(0, 36);
+            this.playAsLabel.TabIndex = 32;
+            // 
             // Board
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(532, 439);
+            this.Controls.Add(this.playAsLabel);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.debugInfo);
             this.Controls.Add(this.typeOfGameLabel);
@@ -378,6 +402,8 @@
         private System.Windows.Forms.Label debugInfo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label playAsLabel;
     }
 }
 
